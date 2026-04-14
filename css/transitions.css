@@ -1,0 +1,147 @@
+/* ============================================================
+   View Transitions & Animations
+
+   Navigation model:
+     Forward  (open new view)  → new view slides IN  from right,
+                                  old view slides to the LEFT (parallax)
+     Backward (close / back)   → current view slides OUT to right,
+                                  previous view returns from the left
+
+   Start view is special: slides UP from the bottom (overlay).
+   Modals:          fade + sheet slides up.
+   Calendar months: slide left or right depending on direction.
+   ============================================================ */
+
+
+/* ============================================================
+   Regular views: translateX transitions
+   Base state is already defined in base.css (.view, .view--active, etc.)
+   Here we add the "going back" state.
+   ============================================================ */
+
+/* When this view is being left while navigating FORWARD:
+   slide it slightly left (parallax depth cue) */
+.view--behind {
+  transform: translateX(-28%);
+  transition: transform var(--transition-normal);
+}
+
+/* When this view is the one RETURNING after a back-navigation:
+   it starts at -28% and transitions back to 0 (handled by adding view--active) */
+
+/* Prevent transition during initial render (added briefly by JS) */
+.view--no-transition {
+  transition: none !important;
+}
+
+
+/* ============================================================
+   Start view: slide up / down
+   ============================================================ */
+
+/* Starting state (off-screen below) is .view--overlay in base.css:
+     transform: translateY(100%)
+   Active state is .view--overlay.view--active:
+     transform: translateY(0)
+   Both use the shared --transition-normal timing.            */
+
+
+/* ============================================================
+   Calendar month transition
+   ============================================================ */
+
+/* Container that wraps the calendar grid rows */
+.calendar-grid {
+  /* overflow hidden so outgoing grid doesn't bleed */
+  overflow: hidden;
+  position: relative;
+}
+
+.calendar-grid__inner {
+  transition: transform var(--transition-normal),
+              opacity var(--transition-fast);
+}
+
+/* Slide out to the left (month advances forward) */
+.calendar-grid__inner--exit-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Slide out to the right (month goes backward) */
+.calendar-grid__inner--exit-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Enter from the right */
+.calendar-grid__inner--enter-right {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Enter from the left */
+.calendar-grid__inner--enter-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Settled / visible state */
+.calendar-grid__inner--settled {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+/* ============================================================
+   Modal sheet animation
+   Already handled inline via .modal--visible in components.css.
+   Additional utility: prevent scroll on body while modal is open.
+   ============================================================ */
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+
+/* ============================================================
+   Fade-in for content that appears within a view
+   (e.g., entries list after data load)
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp var(--transition-normal) both;
+}
+
+/* Stagger children using animation-delay */
+.animate-fade-in-up:nth-child(1) { animation-delay:  30ms; }
+.animate-fade-in-up:nth-child(2) { animation-delay:  80ms; }
+.animate-fade-in-up:nth-child(3) { animation-delay: 130ms; }
+.animate-fade-in-up:nth-child(4) { animation-delay: 180ms; }
+.animate-fade-in-up:nth-child(5) { animation-delay: 230ms; }
+
+
+/* ============================================================
+   Pressed / active states for interactive elements
+   ============================================================ */
+@keyframes pressRipple {
+  from { transform: scale(1); }
+  50%  { transform: scale(0.96); }
+  to   { transform: scale(1); }
+}
+
+/* Utility: subtle scale when tapping a card */
+.tap-scale:active {
+  transform: scale(0.98);
+  transition: transform 80ms ease;
+}

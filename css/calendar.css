@@ -1,0 +1,248 @@
+/* ============================================================
+   Calendar View Styles
+   ============================================================ */
+
+
+/* ── Plain icon button (used in calendar header) ─────────── */
+
+.cal-icon-btn {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  padding: var(--space-8);
+  transition: background-color var(--transition-fast);
+}
+
+.cal-icon-btn:active {
+  background-color: var(--bg-secondary);
+}
+
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.calendar-header {
+  /* Override base view-header for a 3-column layout */
+  display: grid;
+  grid-template-columns: 44px 1fr 60px;
+  align-items: center;
+  padding: var(--space-8) var(--space-12);
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  min-height: 56px;
+  flex-shrink: 0;
+}
+
+.calendar-header__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.calendar-header__month-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: var(--space-8) var(--space-4);
+  /* Touch target */
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.calendar-header__month-btn:active {
+  background-color: var(--bg-secondary);
+}
+
+.calendar-header__month-text {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  min-width: 140px;
+  text-align: center;
+}
+
+.calendar-header__today {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: var(--space-8) var(--space-4);
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+  text-align: right;
+}
+
+.calendar-header__today:active {
+  opacity: 0.6;
+}
+
+/* Hide "Heute" button when already on current month */
+.calendar-header__today[hidden] {
+  visibility: hidden;  /* keeps grid layout stable */
+  pointer-events: none;
+}
+
+
+/* ── Weekday row ─────────────────────────────────────────── */
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: var(--space-8) var(--space-12) var(--space-4);
+  background-color: var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.calendar-weekdays__cell {
+  text-align: center;
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  padding: var(--space-4) 0;
+}
+
+/* Saturday / Sunday slightly dimmed */
+.calendar-weekdays__cell--weekend {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+
+/* ── Grid ────────────────────────────────────────────────── */
+
+.calendar-grid-wrapper {
+  flex: 1;
+  overflow: hidden;
+  padding: 0 var(--space-12) var(--space-12);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-4);
+}
+
+
+/* ── Day cell ────────────────────────────────────────────── */
+
+.calendar-day {
+  /* Keeps each cell square using padding-bottom trick */
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.calendar-day:active {
+  background-color: var(--bg-secondary);
+}
+
+/* Empty leading/trailing cells */
+.calendar-day--empty {
+  cursor: default;
+}
+.calendar-day--empty:active {
+  background-color: transparent;
+}
+
+/* Day number */
+.calendar-day__num {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+/* Birthday indicator dot */
+.calendar-day__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: transparent;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Day has one or more birthday entries */
+.calendar-day--has-birthday .calendar-day__dot {
+  background-color: var(--color-birthday-dot);
+}
+
+/* Today: coloured border ring around the cell so the birthday dot stays visible */
+.calendar-day--today {
+  border: 2px solid var(--color-today);
+  border-radius: var(--radius-sm);
+}
+
+/* Today: number in the today colour, bold */
+.calendar-day--today .calendar-day__num {
+  color: var(--color-today);
+  font-weight: 700;
+}
+
+/* Today + has birthday: birthday dot stays purple (not overridden) */
+.calendar-day--today.calendar-day--has-birthday .calendar-day__dot {
+  background-color: var(--color-birthday-dot);
+}
+
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.calendar-footer {
+  flex-shrink: 0;
+  padding: var(--space-8) var(--space-16)
+           calc(var(--space-8) + var(--safe-bottom));
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+}
+
+.calendar-footer__btn {
+  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-24);
+  min-height: 44px;
+  cursor: pointer;
+  transition: opacity var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.calendar-footer__btn:active {
+  opacity: 0.7;
+  transform: scale(0.97);
+}

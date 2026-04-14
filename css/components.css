@@ -1,0 +1,624 @@
+/* ============================================================
+   Components – Reusable UI elements
+   ============================================================ */
+
+
+/* ============================================================
+   View header (navigation bar equivalent)
+   ============================================================ */
+.view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-12) var(--space-16);
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  /* Minimum touch target height */
+  min-height: 56px;
+  flex-shrink: 0;
+}
+
+.view-header__title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+  text-align: center;
+  /* Prevent title from overflowing into button areas */
+  padding: 0 var(--space-8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-header__left,
+.view-header__right {
+  /* Fixed width keeps the title centred */
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.view-header__right {
+  justify-content: flex-end;
+}
+
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+/* Base button reset + shared styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  font-family: inherit;
+  font-size: var(--font-md);
+  font-weight: 600;
+  line-height: 1;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-12) var(--space-20);
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity var(--transition-fast),
+              background-color var(--transition-fast),
+              transform var(--transition-fast);
+  /* iOS: prevent button from being too small to tap */
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary – filled accent */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--text-on-accent);
+}
+.btn--primary:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Secondary – outlined accent */
+.btn--secondary {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+/* Danger – filled red */
+.btn--danger {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+/* Ghost – no background, accent text */
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-accent);
+  padding: var(--space-8) var(--space-12);
+}
+
+/* Ghost danger */
+.btn--ghost-danger {
+  background-color: transparent;
+  color: var(--color-danger);
+  padding: var(--space-8) var(--space-12);
+}
+
+/* Icon button (circle, for header actions) */
+.btn--icon {
+  background-color: transparent;
+  color: var(--color-accent);
+  border-radius: 50%;
+  padding: var(--space-8);
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Full-width variant */
+.btn--full {
+  width: 100%;
+}
+
+/* Small variant */
+.btn--sm {
+  font-size: var(--font-sm);
+  padding: var(--space-8) var(--space-12);
+  min-height: 36px;
+  border-radius: var(--radius-sm);
+}
+
+/* Button row (e.g. Save / Cancel) */
+.btn-row {
+  display: flex;
+  gap: var(--space-12);
+  padding: var(--space-16);
+}
+
+.btn-row .btn {
+  flex: 1;
+}
+
+
+/* ============================================================
+   Cards & list items
+   ============================================================ */
+.card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.list-group {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.list-item {
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Birthday entry card */
+.entry-card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: var(--space-16);
+  margin-bottom: var(--space-12);
+  box-shadow: var(--shadow-sm);
+}
+
+.entry-card__name {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.entry-card__meta {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.entry-card__note {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-8);
+  font-style: italic;
+}
+
+.entry-card__actions {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--border-color);
+}
+
+
+/* ============================================================
+   Category badge
+   ============================================================ */
+.badge {
+  display: inline-block;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: 2px var(--space-8);
+  border-radius: 99px;
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+
+/* ============================================================
+   Form groups
+   ============================================================ */
+.form-group {
+  margin-bottom: var(--space-20);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.form-label--required::after {
+  content: ' *';
+  color: var(--color-danger);
+}
+
+/* Character counter */
+.form-counter {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  text-align: right;
+  margin-top: var(--space-4);
+}
+
+.form-counter--warn {
+  color: var(--color-danger);
+}
+
+/* Inline error message */
+.form-error {
+  font-size: var(--font-sm);
+  color: var(--color-danger);
+  margin-top: var(--space-4);
+  display: none;
+}
+
+.form-error--visible {
+  display: block;
+}
+
+/* Input in error state */
+.input--error {
+  border-color: var(--color-danger) !important;
+}
+
+/* Hint text below a field */
+.form-hint {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--space-4);
+}
+
+/* Select wrapper (for custom arrow) */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--text-secondary);
+  pointer-events: none;
+}
+
+.select-wrapper select {
+  padding-right: var(--space-48);
+}
+
+
+/* ============================================================
+   Section header (used inside scrollable view content)
+   ============================================================ */
+.section-header {
+  padding: var(--space-20) var(--space-16) var(--space-8);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.section-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: var(--space-20) var(--space-16) var(--space-4);
+}
+
+.section-subtitle {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  padding: 0 var(--space-16) var(--space-16);
+}
+
+
+/* ============================================================
+   Empty state
+   ============================================================ */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-48) var(--space-32);
+  text-align: center;
+  gap: var(--space-12);
+}
+
+.empty-state__icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.empty-state__title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.empty-state__text {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  max-width: 260px;
+}
+
+
+/* ============================================================
+   Info box (e.g. notification hint in settings)
+   ============================================================ */
+.info-box {
+  background-color: var(--color-accent-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-16);
+  font-size: var(--font-sm);
+  color: var(--color-accent);
+  line-height: 1.6;
+}
+
+.info-box--neutral {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+
+/* ============================================================
+   Modal (delete confirmation)
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;   /* sheet slides up from bottom */
+  padding-bottom: var(--safe-bottom);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.modal--visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg-overlay);
+}
+
+.modal__sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-8) var(--space-16) var(--space-32);
+  transform: translateY(100%);
+  transition: transform var(--transition-normal);
+}
+
+.modal--visible .modal__sheet {
+  transform: translateY(0);
+}
+
+.modal__drag-handle {
+  width: 36px;
+  height: 4px;
+  background-color: var(--border-color);
+  border-radius: 2px;
+  margin: var(--space-8) auto var(--space-16);
+}
+
+.modal__title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-8);
+}
+
+.modal__body {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-24);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   Floating action button (FAB)
+   ============================================================ */
+.fab {
+  position: fixed;
+  right: var(--space-20);
+  bottom: calc(var(--safe-bottom) + var(--space-20));
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--text-on-accent);
+  font-size: 28px;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast),
+              background-color var(--transition-fast);
+}
+
+.fab:active {
+  transform: scale(0.93);
+}
+
+
+/* ============================================================
+   Day group header (in start-view and day-view)
+   ============================================================ */
+.day-group {
+  padding: 0 var(--space-16) var(--space-8);
+}
+
+.day-group__label {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding: var(--space-20) 0 var(--space-8);
+}
+
+.day-group__date {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-12);
+}
+
+
+/* ============================================================
+   Form view
+   ============================================================ */
+
+.form-body {
+  padding: var(--space-16);
+}
+
+/* Static date display in "add" mode */
+.form-date-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-accent-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-12) var(--space-16);
+  margin-bottom: var(--space-20);
+}
+
+.form-date-display__label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.form-date-display__value {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Day + month selects side by side in "edit" mode */
+.form-date-row {
+  display: flex;
+  gap: var(--space-12);
+}
+
+
+/* ============================================================
+   Day view
+   ============================================================ */
+
+.day-view__full-date {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  padding: var(--space-12) var(--space-16) var(--space-4);
+}
+
+.day-view__footer {
+  flex-shrink: 0;
+  padding: var(--space-12) var(--space-16)
+           calc(var(--space-12) + var(--safe-bottom));
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+}
+
+
+/* ============================================================
+   Start overlay sheet
+   ============================================================ */
+
+/* The overlay view uses translateY transitions (defined in base.css).
+   This styles the inner "sheet card" that sits at the bottom. */
+.start-sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  /* Sheet appears from the bottom of the screen */
+  margin-top: 60px; /* leave a peek of the calendar behind */
+  overflow: hidden;
+}
+
+.start-sheet__handle {
+  width: 36px;
+  height: 4px;
+  background-color: var(--border-color);
+  border-radius: 2px;
+  margin: var(--space-12) auto var(--space-4);
+  flex-shrink: 0;
+}
+
+.start-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-8) var(--space-16) var(--space-12);
+  flex-shrink: 0;
+}
+
+.start-sheet__title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.start-sheet__close {
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-secondary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.start-sheet__close:active {
+  background-color: var(--border-color);
+}
+
+.start-sheet__body {
+  padding: 0 var(--space-16);
+}
+
+
+/* ============================================================
+   Version string (settings footer)
+   ============================================================ */
+.version-label {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  padding: var(--space-24) var(--space-16);
+}

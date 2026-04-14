@@ -1,0 +1,103 @@
+/* ============================================================
+   Design Tokens – Light Mode (default)
+   ============================================================ */
+:root {
+  /* --- Accent colour (birthday purple) --- */
+  --color-accent:        #7C3AED;
+  --color-accent-light:  #EDE9FE;
+  --color-accent-hover:  #6D28D9;
+
+  /* --- Semantic colours --- */
+  --color-danger:        #FF3B30;
+  --color-danger-light:  #FFF0EF;
+  --color-today:         #FF6B6B;   /* ring around today in calendar */
+  --color-birthday-dot:  #7C3AED;   /* dot on days with birthdays     */
+
+  /* --- Background layers (mirrors iOS hierarchy) --- */
+  --bg-primary:    #FFFFFF;   /* main content areas    */
+  --bg-secondary:  #F2F2F7;   /* grouped list / input  */
+  --bg-card:       #FFFFFF;   /* cards / list items    */
+  --bg-overlay:    rgba(0, 0, 0, 0.40);  /* modal backdrop */
+
+  /* --- Text --- */
+  --text-primary:    #1C1C1E;
+  --text-secondary:  #6B7280;
+  --text-tertiary:   #9CA3AF;
+  --text-on-accent:  #FFFFFF;
+
+  /* --- Borders / dividers --- */
+  --border-color:  #E5E7EB;
+
+  /* --- Border radii --- */
+  --radius-sm:   8px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  /* --- Spacing (4-point grid) --- */
+  --space-2:   2px;
+  --space-4:   4px;
+  --space-8:   8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+
+  /* --- Typography --- */
+  --font-xs:   12px;
+  --font-sm:   14px;
+  --font-md:   16px;
+  --font-lg:   20px;
+  --font-xl:   24px;
+  --font-xxl:  30px;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 1px  4px rgba(0, 0, 0, 0.08);
+  --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.14);
+
+  /* --- Transitions --- */
+  --transition-fast:    150ms ease;
+  --transition-normal:  300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    420ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- iOS safe-area insets (env() with fallback) --- */
+  --safe-top:    env(safe-area-inset-top,    0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left,   0px);
+  --safe-right:  env(safe-area-inset-right,  0px);
+}
+
+/* ============================================================
+   Design Tokens – Dark Mode
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-accent:        #A78BFA;
+    --color-accent-light:  #2D1B6B;
+    --color-accent-hover:  #C4B5FD;
+
+    --color-danger:        #FF453A;
+    --color-danger-light:  #3A1515;
+    --color-today:         #FF6B6B;
+    --color-birthday-dot:  #A78BFA;
+
+    --bg-primary:    #1C1C1E;
+    --bg-secondary:  #2C2C2E;
+    --bg-card:       #2C2C2E;
+    --bg-overlay:    rgba(0, 0, 0, 0.60);
+
+    --text-primary:    #FFFFFF;
+    --text-secondary:  #8E8E93;
+    --text-tertiary:   #636366;
+    --text-on-accent:  #FFFFFF;
+
+    --border-color:  #3A3A3C;
+
+    --shadow-sm:  0 1px  4px rgba(0, 0, 0, 0.30);
+    --shadow-md:  0 4px 16px rgba(0, 0, 0, 0.40);
+    --shadow-lg:  0 8px 32px rgba(0, 0, 0, 0.50);
+  }
+}
