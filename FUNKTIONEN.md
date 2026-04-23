@@ -1,6 +1,6 @@
 # Geburtstagsapp – Funktionsübersicht
 
-Version 1.0.0 · Progressive Web App für iPhone (iOS 16.4+)
+Version 1.1.0 · Progressive Web App für iPhone (iOS 16.4+)
 
 ---
 
@@ -106,14 +106,6 @@ Erscheint nach Tippen auf „Löschen" in der Tages-Detailansicht:
 
 Erreichbar über das ⚙-Symbol in der Kalenderansicht.
 
-### Benachrichtigungen
-
-iOS-Web-Apps können keine Benachrichtigungen senden, wenn die App
-geschlossen ist. Das ist eine technische Plattformbeschränkung.
-
-**Empfehlung:** Öffne die App regelmäßig – beim Start siehst du sofort,
-wer heute oder in den nächsten Tagen Geburtstag hat.
-
 ### Export
 
 Exportiert alle gespeicherten Geburtstage als CSV-Datei:
@@ -122,6 +114,58 @@ Exportiert alle gespeicherten Geburtstage als CSV-Datei:
 - **Spalten:** Name, Tag, Monat, Jahrgang, Kategorie, Notiz
 - **Encoding:** UTF-8 mit BOM → Umlaute werden in Excel korrekt dargestellt
 - Leere Felder bleiben leer (kein „null" oder „–")
+
+### Import
+
+Importiert Geburtstage aus einer CSV-Datei im gleichen Format wie der Export.
+Bestehende Einträge werden nicht überschrieben.
+
+**Dateiformat:**
+- Nur CSV-Dateien (`.csv`)
+- Spaltenreihenfolge: Name, Tag, Monat, Jahrgang, Kategorie, Notiz
+- Erste Zeile wird als Kopfzeile erkannt und übersprungen
+- Trennzeichen: Komma oder Semikolon – wird automatisch erkannt
+- Tag und Monat mit oder ohne führende Null (z. B. `01` oder `1`)
+
+**Gültige Werte:**
+
+| Feld | Pflicht | Gültige Werte |
+|---|---|---|
+| Name | ✓ | Beliebiger Text |
+| Tag | ✓ | 1–31 (je nach Monat) |
+| Monat | ✓ | 1–12 |
+| Jahrgang | – | 1900–aktuelles Jahr, oder leer |
+| Kategorie | – | leer, `Familie`, `Freund*innen`, `Kolleg*innen` |
+| Notiz | – | Beliebiger Text, oder leer |
+
+**Verhalten beim Import:**
+- Bereits vorhandene Einträge (gleicher Name, Tag und Monat) werden automatisch übersprungen
+- Fehlerhafte Zeilen werden übersprungen, der Rest wird importiert
+- Eine Zeile gilt als fehlerhaft bei: fehlendem Name, ungültigem Datum (z. B. 31. Februar), ungültigem Jahrgang oder ungültiger Kategorie
+
+**Rückmeldung nach dem Import:**
+
+Nach Abschluss erscheint ein Dialogfenster mit dem Ergebnis, z. B.:
+
+> ✓ Der Import wurde erfolgreich abgeschlossen
+>
+> 3 Einträge wurden neu importiert.
+> 2 schon vorhandene Einträge wurden nicht mehr importiert.
+>
+> 1 Zeile wurde übersprungen:
+> Zeile 5: Ungültiges Datum (31. Februar)
+
+Bei einem technischen Fehler (z. B. unleserliche Datei):
+
+> ✕ Der Import wurde abgebrochen
+
+### Benachrichtigungen
+
+iOS-Web-Apps können keine Benachrichtigungen senden, wenn die App
+geschlossen ist. Das ist eine technische Plattformbeschränkung.
+
+**Empfehlung:** Öffne die App regelmäßig – beim Start siehst du sofort,
+wer heute oder in den nächsten Tagen Geburtstag hat.
 
 ---
 
@@ -147,6 +191,7 @@ Alle Daten werden **ausschließlich lokal** auf dem Gerät gespeichert
 | Speichern fehlgeschlagen | „Speichern fehlgeschlagen. Bitte versuche es erneut." |
 | Export fehlgeschlagen | „Export fehlgeschlagen. Bitte versuche es erneut." |
 | Ungültiges Datum (Edit-Modus) | „Dieses Datum existiert nicht. Bitte überprüfe Tag und Monat." |
+| Importdatei nicht lesbar | „Datei konnte nicht gelesen werden." |
 
 ---
 
