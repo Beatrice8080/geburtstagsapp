@@ -107,6 +107,16 @@ export class SettingsView {
             <span style="font-weight:500">Version</span>
             <span style="color:var(--text-secondary);font-size:var(--font-sm)">${APP_VERSION}</span>
           </div>
+          <div class="list-item">
+            <p style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-12)">
+              Prüft, ob eine neue Version verfügbar ist, und lädt sie herunter.
+              Deine Geburtstage bleiben dabei erhalten.
+            </p>
+            <button class="btn btn--secondary btn--full" id="settings-btn-update">
+              🔄 App aktualisieren
+            </button>
+            <div id="update-status" style="margin-top:var(--space-8);font-size:var(--font-sm);text-align:center"></div>
+          </div>
         </div>
 
         <p class="version-label">Geburtstagsapp · Alle Daten lokal gespeichert</p>
@@ -249,6 +259,49 @@ export class SettingsView {
       } finally {
         importBtn.disabled    = false;
         importBtn.textContent = '📥 Importieren';
+      }
+    });
+
+    q('#settings-btn-update')?.addEventListener('click', async () => {
+      const btn       = q('#settings-btn-update');
+      const statusEl  = q('#update-status');
+
+      if (!('serviceWorker' in navigator)) {
+        statusEl.textContent = 'Aktualisierung nicht unterstützt.';
+        statusEl.style.color = 'var(--color-danger)';
+        return;
+      }
+
+      btn.disabled    = true;
+      btn.textContent = 'Wird geprüft…';
+      statusEl.textContent = '';
+
+      try {
+        const reg = await navigator.serviceWorker.getRegistration();
+        if (!reg) throw new Error('Kein Service Worker gefunden.');
+
+        // Listen for a new SW taking control → reload to serve fresh files
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          window.location.reload();
+        });
+
+        await reg.update();
+
+        // If a new SW is already waiting (installed but not yet active), activate it
+        if (reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          return; // reload will follow via controllerchange
+        }
+
+        // No update waiting → already up to date
+        statusEl.textContent = '✓ Du hast bereits die neueste Version.';
+        statusEl.style.color = 'var(--color-success, #16a34a)';
+      } catch (err) {
+        statusEl.textContent = 'Aktualisierung fehlgeschlagen.';
+        statusEl.style.color = 'var(--color-danger)';
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = '🔄 App aktualisieren';
       }
     });
   }

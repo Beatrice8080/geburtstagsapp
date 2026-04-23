@@ -4,7 +4,7 @@
    fully offline after the first load.
    ============================================================ */
 
-const CACHE_NAME = 'geburtstagsapp-v2';
+const CACHE_NAME = 'geburtstagsapp-v3';
 
 // All files that must be cached for offline use
 const ASSETS_TO_CACHE = [
@@ -26,6 +26,7 @@ const ASSETS_TO_CACHE = [
   './js/views/delete-dialog.js',
   './js/views/settings-view.js',
   './js/export.js',
+  './js/import.js',
   './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -53,6 +54,11 @@ self.addEventListener('activate', (event) => {
   );
   // Take control of all open clients immediately
   self.clients.claim();
+});
+
+/* --- Message: allow manual update trigger --- */
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 /* --- Fetch: serve from cache, fall back to network --- */
