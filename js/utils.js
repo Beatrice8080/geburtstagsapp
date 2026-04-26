@@ -90,21 +90,6 @@ export function calculateAge(birthYear, atYear) {
 }
 
 /**
- * Given a birthday (day, month) and a reference year, returns a Date
- * representing that birthday in the reference year.
- * Handles 29 Feb gracefully: if the reference year is not a leap year,
- * the date rolls to 1 March (matching common convention).
- *
- * @param {number} day
- * @param {number} month
- * @param {number} year  – the reference year
- * @returns {Date}
- */
-export function getBirthdayInYear(day, month, year) {
-  return new Date(year, month - 1, day);
-}
-
-/**
  * Returns an array of { day, month, year } objects for today plus the
  * next `count - 1` days (total `count` days starting from today).
  *

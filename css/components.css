@@ -12,10 +12,13 @@
   justify-content: space-between;
   padding: var(--space-12) var(--space-16);
   background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  /* Minimum touch target height */
+  border-bottom: 1px solid var(--divider-color);
   min-height: 56px;
   flex-shrink: 0;
+}
+
+.view-header--plain {
+  border-bottom: none;
 }
 
 .view-header__title {
@@ -24,16 +27,16 @@
   color: var(--text-primary);
   flex: 1;
   text-align: center;
-  /* Prevent title from overflowing into button areas */
   padding: 0 var(--space-8);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: -0.02em;
 }
 
 .view-header__left,
 .view-header__right {
-  /* Fixed width keeps the title centred */
+  flex: 1;
   min-width: 44px;
   display: flex;
   align-items: center;
@@ -48,7 +51,6 @@
    Buttons
    ============================================================ */
 
-/* Base button reset + shared styles */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -63,10 +65,10 @@
   padding: var(--space-12) var(--space-20);
   cursor: pointer;
   text-decoration: none;
+  letter-spacing: -0.01em;
   transition: opacity var(--transition-fast),
               background-color var(--transition-fast),
               transform var(--transition-fast);
-  /* iOS: prevent button from being too small to tap */
   min-height: 44px;
   white-space: nowrap;
 }
@@ -75,25 +77,26 @@
   transform: scale(0.97);
 }
 
-/* Primary – filled accent */
+/* Primary – filled accent with shadow */
 .btn--primary {
   background-color: var(--color-accent);
   color: var(--text-on-accent);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 18px rgba(122, 77, 255, 0.30);
 }
 .btn--primary:hover {
   background-color: var(--color-accent-hover);
 }
 
-/* Secondary – outlined accent */
+/* Secondary – soft lilac tint */
 .btn--secondary {
   background-color: var(--color-accent-light);
   color: var(--color-accent);
+  border-radius: var(--radius-md);
 }
-
-/* Danger – filled red */
-.btn--danger {
-  background-color: var(--color-danger);
-  color: #fff;
+.btn--secondary:hover {
+  background-color: var(--color-flieder);
+  color: var(--color-accent-hover);
 }
 
 /* Ghost – no background, accent text */
@@ -103,14 +106,16 @@
   padding: var(--space-8) var(--space-12);
 }
 
-/* Ghost danger */
-.btn--ghost-danger {
-  background-color: transparent;
-  color: var(--color-danger);
-  padding: var(--space-8) var(--space-12);
+/* Soft danger – light salmon fill */
+.btn--danger-soft {
+  background-color: var(--color-salmon-light);
+  color: var(--color-salmon);
+}
+.btn--danger-soft:hover {
+  background-color: #ffd0ca;
 }
 
-/* Icon button (circle, for header actions) */
+/* Icon button */
 .btn--icon {
   background-color: transparent;
   color: var(--color-accent);
@@ -123,14 +128,6 @@
 /* Full-width variant */
 .btn--full {
   width: 100%;
-}
-
-/* Small variant */
-.btn--sm {
-  font-size: var(--font-sm);
-  padding: var(--space-8) var(--space-12);
-  min-height: 36px;
-  border-radius: var(--radius-sm);
 }
 
 /* Button row (e.g. Save / Cancel) */
@@ -148,22 +145,17 @@
 /* ============================================================
    Cards & list items
    ============================================================ */
-.card {
-  background-color: var(--bg-card);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
 .list-group {
   background-color: var(--bg-card);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 
 .list-item {
   padding: var(--space-16);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--divider-color);
 }
 
 .list-item:last-child {
@@ -173,23 +165,27 @@
 /* Birthday entry card */
 .entry-card {
   background-color: var(--bg-card);
-  border-radius: var(--radius-md);
-  padding: var(--space-16);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--space-16) var(--space-20);
   margin-bottom: var(--space-12);
   box-shadow: var(--shadow-sm);
 }
 
 .entry-card__name {
-  font-size: var(--font-lg);
+  font-size: 22px;
   font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
   margin-bottom: var(--space-4);
 }
 
 .entry-card__meta {
   font-size: var(--font-sm);
+  font-weight: 500;
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-8);
 }
 
 .entry-card__note {
@@ -197,28 +193,121 @@
   color: var(--text-secondary);
   margin-top: var(--space-8);
   font-style: italic;
+  line-height: 1.5;
 }
 
-.entry-card__actions {
+/* Today's birthday card – gradient variant */
+.entry-card--today {
+  background: linear-gradient(to right, rgb(122, 77, 255) 0%, rgb(255, 122, 107) 100%);
+  border: none;
+  box-shadow: 0 8px 24px rgba(122, 77, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+  padding-right: 80px;
+}
+
+.entry-card--today .entry-card__name {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.entry-card--today .entry-card__meta {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.entry-card--today .entry-card__note {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.entry-card--today .badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Large decorative circle (top-right, partially clipped) */
+.entry-card__today-circle-lg {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  top: -38px;
+  right: -38px;
+  pointer-events: none;
+}
+
+/* Small circle containing the gift icon */
+.entry-card__today-circle-sm {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  top: 16px;
+  right: 16px;
   display: flex;
-  gap: var(--space-8);
-  margin-top: var(--space-12);
-  padding-top: var(--space-12);
-  border-top: 1px solid var(--border-color);
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Clickable entry cards */
+.entry-card[role="button"] {
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.entry-card[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Upcoming birthday card (tomorrow, day after tomorrow) */
+.entry-card--upcoming {
+  position: relative;
+  overflow: hidden;
+  padding-right: 80px;
+}
+
+/* Large decorative circle – identical gradient to dv-hero__deco-lg */
+.entry-card__upcoming-circle-lg {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(122, 77, 255, 0.04) 0%, rgba(255, 138, 61, 0.04) 100%);
+  top: -38px;
+  right: -38px;
+  pointer-events: none;
+}
+
+/* Small circle containing the gift icon */
+.entry-card__upcoming-circle-sm {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: rgba(122, 77, 255, 0.10);
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 
 /* ============================================================
-   Category badge
+   Category badge / chip
    ============================================================ */
 .badge {
   display: inline-block;
   font-size: var(--font-xs);
   font-weight: 600;
-  padding: 2px var(--space-8);
-  border-radius: 99px;
+  padding: 4px var(--space-12);
+  border-radius: var(--radius-pill);
   background-color: var(--color-accent-light);
   color: var(--color-accent);
+  letter-spacing: -0.005em;
 }
 
 
@@ -235,11 +324,12 @@
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: var(--space-8);
+  letter-spacing: -0.005em;
 }
 
 .form-label--required::after {
   content: ' *';
-  color: var(--color-danger);
+  color: var(--color-salmon);
 }
 
 /* Character counter */
@@ -248,10 +338,7 @@
   color: var(--text-tertiary);
   text-align: right;
   margin-top: var(--space-4);
-}
-
-.form-counter--warn {
-  color: var(--color-danger);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Inline error message */
@@ -269,13 +356,6 @@
 /* Input in error state */
 .input--error {
   border-color: var(--color-danger) !important;
-}
-
-/* Hint text below a field */
-.form-hint {
-  font-size: var(--font-xs);
-  color: var(--text-tertiary);
-  margin-top: var(--space-4);
 }
 
 /* Select wrapper (for custom arrow) */
@@ -309,22 +389,9 @@
   padding: var(--space-20) var(--space-16) var(--space-8);
   font-size: var(--font-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-.section-title {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: var(--text-primary);
-  padding: var(--space-20) var(--space-16) var(--space-4);
-}
-
-.section-subtitle {
-  font-size: var(--font-md);
-  color: var(--text-secondary);
-  padding: 0 var(--space-16) var(--space-16);
+  color: var(--color-accent);
 }
 
 
@@ -342,38 +409,45 @@
 }
 
 .empty-state__icon {
-  font-size: 48px;
-  line-height: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-state__title {
   font-size: var(--font-lg);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .empty-state__text {
-  font-size: var(--font-sm);
+  font-size: var(--font-md);
   color: var(--text-secondary);
-  max-width: 260px;
+  max-width: 312px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.empty-state--compact {
+  padding-bottom: var(--space-20);
 }
 
 
 /* ============================================================
    Info box (e.g. notification hint in settings)
    ============================================================ */
-.info-box {
-  background-color: var(--color-accent-light);
-  border-radius: var(--radius-md);
-  padding: var(--space-16);
-  font-size: var(--font-sm);
-  color: var(--color-accent);
-  line-height: 1.6;
-}
-
 .info-box--neutral {
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-12);
 }
 
 
@@ -385,7 +459,7 @@
   inset: 0;
   z-index: 100;
   display: flex;
-  align-items: flex-end;   /* sheet slides up from bottom */
+  align-items: flex-end;
   padding-bottom: var(--safe-bottom);
   pointer-events: none;
   opacity: 0;
@@ -401,17 +475,27 @@
   position: absolute;
   inset: 0;
   background-color: var(--bg-overlay);
+  backdrop-filter: blur(4px);
 }
 
 .modal__sheet {
   position: relative;
   z-index: 1;
-  width: 100%;
-  background-color: var(--bg-card);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  padding: var(--space-8) var(--space-16) var(--space-32);
+  width: calc(100% - 16px);
+  margin: 0 8px 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  padding: 0 0 var(--space-8);
   transform: translateY(100%);
   transition: transform var(--transition-normal);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal__sheet {
+    background: rgba(32, 26, 38, 0.96);
+  }
 }
 
 .modal--visible .modal__sheet {
@@ -426,48 +510,41 @@
   margin: var(--space-8) auto var(--space-16);
 }
 
+.modal__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-salmon-light);
+  color: var(--color-salmon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-12) auto var(--space-4);
+}
+
 .modal__title {
   font-size: var(--font-lg);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: var(--space-8);
+  padding: var(--space-8) var(--space-16) var(--space-8);
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .modal__body {
   font-size: var(--font-md);
   color: var(--text-secondary);
-  margin-bottom: var(--space-24);
+  padding: 0 var(--space-16) var(--space-16);
   line-height: 1.6;
+  text-align: center;
 }
 
-
-/* ============================================================
-   Floating action button (FAB)
-   ============================================================ */
-.fab {
-  position: fixed;
-  right: var(--space-20);
-  bottom: calc(var(--safe-bottom) + var(--space-20));
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: var(--color-accent);
-  color: var(--text-on-accent);
-  font-size: 28px;
-  line-height: 1;
-  border: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform var(--transition-fast),
-              background-color var(--transition-fast);
+/* Delete confirm button row inside modal */
+.modal__sheet .btn-row {
+  border-top: 1px solid var(--divider-color);
+  margin-top: var(--space-8);
 }
 
-.fab:active {
-  transform: scale(0.93);
-}
 
 
 /* ============================================================
@@ -480,16 +557,16 @@
 .day-group__label {
   font-size: var(--font-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
-  padding: var(--space-20) 0 var(--space-8);
+  padding: var(--space-12) 0 var(--space-2);
 }
 
 .day-group__date {
   font-size: var(--font-sm);
   color: var(--text-secondary);
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
 }
 
 
@@ -498,7 +575,7 @@
    ============================================================ */
 
 .form-body {
-  padding: var(--space-16);
+  padding: var(--space-16) var(--space-20);
 }
 
 /* Static date display in "add" mode */
@@ -506,22 +583,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-accent-light);
+  background: linear-gradient(135deg, var(--color-accent-light), var(--color-orange-light));
   border-radius: var(--radius-md);
-  padding: var(--space-12) var(--space-16);
+  padding: var(--space-16) var(--space-20);
   margin-bottom: var(--space-20);
 }
 
 .form-date-display__label {
-  font-size: var(--font-sm);
-  font-weight: 600;
+  font-size: var(--font-xs);
+  font-weight: 700;
   color: var(--color-accent);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
 }
 
 .form-date-display__value {
   font-size: var(--font-md);
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 /* Day + month selects side by side in "edit" mode */
@@ -535,81 +615,266 @@
    Day view
    ============================================================ */
 
-.day-view__full-date {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  padding: var(--space-12) var(--space-16) var(--space-4);
-}
-
 .day-view__footer {
   flex-shrink: 0;
-  padding: var(--space-12) var(--space-16)
+  padding: var(--space-12) var(--space-20)
            calc(var(--space-12) + var(--safe-bottom));
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--divider-color);
   background-color: var(--bg-primary);
+}
+
+
+/* ── Hero card ───────────────────────────────────────── */
+
+.dv-hero {
+  margin: var(--space-12) var(--space-16);
+  border-radius: var(--radius-xl);
+  padding: var(--space-20);
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.dv-hero--today {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-salmon) 100%);
+  border: none;
+  box-shadow: 0 8px 32px rgba(122, 77, 255, 0.28);
+}
+
+.dv-hero__deco-lg {
+  position: absolute;
+  width: 177px;
+  height: 177px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(122, 77, 255, 0.04) 0%, rgba(255, 138, 61, 0.04) 100%);
+  top: -49px;
+  right: -49px;
+  pointer-events: none;
+}
+
+.dv-hero--today .dv-hero__deco-lg {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dv-hero__deco-sm {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(122, 77, 255, 0.12);
+  color: var(--color-accent);
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dv-hero--today .dv-hero__deco-sm {
+  background: rgba(255, 255, 255, 0.20);
+  color: white;
+}
+
+.dv-hero__body {
+  position: relative;
+  z-index: 1;
+}
+
+.dv-hero__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-12);
+}
+
+.dv-hero--today .dv-hero__label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dv-hero__name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin-bottom: var(--space-8);
+  color: var(--text-primary);
+  padding-right: 56px;
+}
+
+.dv-hero--today .dv-hero__name {
+  color: #fff;
+}
+
+.dv-hero__date {
+  font-size: var(--font-md);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-20);
+}
+
+.dv-hero--today .dv-hero__date {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.dv-hero__stats {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.dv-hero__stat {
+  flex: 1;
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-12);
+  background: rgba(122, 77, 255, 0.08);
+}
+
+.dv-hero--today .dv-hero__stat {
+  background: rgba(255, 255, 255, 0.20);
+}
+
+.dv-hero__stat-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 3px;
+}
+
+.dv-hero--today .dv-hero__stat-label {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.dv-hero__stat-value {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.dv-hero--today .dv-hero__stat-value {
+  color: #fff;
+}
+
+.dv-hero__stat-unit {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.dv-hero--today .dv-hero__stat-unit {
+  color: rgba(255, 255, 255, 0.80);
+}
+
+.dv-hero__stat--today .dv-hero__stat-value {
+  letter-spacing: normal;
+}
+
+
+/* ── Info section ────────────────────────────────────── */
+
+.dv-info {
+  margin: 0 var(--space-16) var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.dv-info__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--space-16);
+  box-shadow: var(--shadow-sm);
+}
+
+.dv-info__key {
+  font-size: var(--font-md);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.dv-note {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: var(--space-16);
+  box-shadow: var(--shadow-sm);
+}
+
+.dv-note__label {
+  display: block;
+  font-size: var(--font-xs);
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--color-salmon);
+  margin-bottom: var(--space-8);
+}
+
+.dv-note__text {
+  font-size: var(--font-md);
+  color: var(--text-primary);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* ── Action buttons ──────────────────────────────────── */
+
+.dv-actions {
+  display: flex;
+  gap: var(--space-12);
+  padding: var(--space-4) var(--space-16) calc(var(--space-20) + var(--safe-bottom));
+}
+
+.dv-actions .btn {
+  flex: 1;
 }
 
 
 /* ============================================================
    Start overlay sheet
    ============================================================ */
-
-/* The overlay view uses translateY transitions (defined in base.css).
-   This styles the inner "sheet card" that sits at the bottom. */
 .start-sheet {
   display: flex;
   flex-direction: column;
   height: 100%;
   background-color: var(--bg-primary);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  /* Sheet appears from the bottom of the screen */
-  margin-top: 60px; /* leave a peek of the calendar behind */
+  margin-top: calc(var(--safe-top) + 8px);
   overflow: hidden;
-}
-
-.start-sheet__handle {
-  width: 36px;
-  height: 4px;
-  background-color: var(--border-color);
-  border-radius: 2px;
-  margin: var(--space-12) auto var(--space-4);
-  flex-shrink: 0;
 }
 
 .start-sheet__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-8) var(--space-16) var(--space-12);
+  padding: var(--space-24) var(--space-20) var(--space-12);
   flex-shrink: 0;
 }
 
 .start-sheet__title {
-  font-size: var(--font-xl);
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 800;
   color: var(--text-primary);
-}
-
-.start-sheet__close {
-  background: var(--bg-secondary);
-  border: none;
-  color: var(--text-secondary);
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color var(--transition-fast);
-}
-
-.start-sheet__close:active {
-  background-color: var(--border-color);
+  letter-spacing: -0.7px;
+  line-height: 1.1;
 }
 
 .start-sheet__body {
-  padding: 0 var(--space-16);
+  padding: 0 var(--space-16) calc(56px + var(--safe-bottom));
 }
 
 
@@ -621,4 +886,31 @@
   font-size: var(--font-xs);
   color: var(--text-tertiary);
   padding: var(--space-24) var(--space-16);
+}
+
+
+/* ============================================================
+   Form inputs override (warmer, rounder)
+   ============================================================ */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(122, 77, 255, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dv-hero--today {
+    background: linear-gradient(135deg, #7A4DFF 0%, #FF7A6B 100%);
+  }
 }

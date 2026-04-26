@@ -12,6 +12,10 @@ import { processCSVImport } from '../import.js';
 
 const APP_VERSION = '1.1.0';
 
+const ICON_EXPORT  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`;
+const ICON_IMPORT  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+const ICON_REFRESH = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`;
+
 export class SettingsView {
   /**
    * @param {HTMLElement} container
@@ -34,9 +38,7 @@ export class SettingsView {
   _buildHTML() {
     return `
       <header class="view-header">
-        <div class="view-header__left">
-          <button class="btn btn--ghost" id="settings-btn-back">‹ Zurück</button>
-        </div>
+        <div class="view-header__left"></div>
         <h1 class="view-header__title" style="font-size:var(--font-md)">Einstellungen</h1>
         <div class="view-header__right"></div>
       </header>
@@ -52,7 +54,7 @@ export class SettingsView {
               CSV-Datei (UTF-8 mit BOM, kompatibel mit Excel).
             </p>
             <button class="btn btn--secondary btn--full" id="settings-btn-export">
-              📤 Exportieren
+              ${ICON_EXPORT} Exportieren
             </button>
             <div class="form-error" id="export-error" role="alert"
                  style="margin-top:var(--space-8)"></div>
@@ -65,7 +67,7 @@ export class SettingsView {
             <input type="file" accept=".csv" id="import-file-input"
                    style="display:none" aria-hidden="true">
             <button class="btn btn--secondary btn--full" id="settings-btn-import">
-              📥 Importieren
+              ${ICON_IMPORT} Importieren
             </button>
           </div>
         </div>
@@ -110,10 +112,13 @@ export class SettingsView {
           <div class="list-item">
             <p style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-12)">
               Prüft, ob eine neue Version verfügbar ist, und lädt sie herunter.
-              Deine Geburtstage bleiben dabei erhalten.
+              <br><br>
+              <strong style="color:var(--text-primary)">Achtung:</strong> Vor der Aktualisierung bitte alle Geburtstage als CSV-Datei exportieren.
+              Die Geburtstage sollten zwar eigentlich bei der Aktualisierung der App erhalten bleiben,
+              aber Vorsicht schadet nie, falls doch etwas schief geht.
             </p>
             <button class="btn btn--secondary btn--full" id="settings-btn-update">
-              🔄 App aktualisieren
+              ${ICON_REFRESH} App aktualisieren
             </button>
             <div id="update-status" style="margin-top:var(--space-8);font-size:var(--font-sm);text-align:center"></div>
           </div>
@@ -217,8 +222,6 @@ export class SettingsView {
   _bindEvents() {
     const q = (sel) => this.container.querySelector(sel);
 
-    q('#settings-btn-back')?.addEventListener('click', () => this.app.popView());
-
     q('#settings-btn-export')?.addEventListener('click', () => {
       const errorEl = q('#export-error');
       try {
@@ -257,8 +260,8 @@ export class SettingsView {
       } catch (err) {
         this._showAbortModal(err.message ?? 'Unbekannter Fehler.');
       } finally {
-        importBtn.disabled    = false;
-        importBtn.textContent = '📥 Importieren';
+        importBtn.disabled  = false;
+        importBtn.innerHTML = `${ICON_IMPORT} Importieren`;
       }
     });
 
@@ -300,8 +303,8 @@ export class SettingsView {
         statusEl.textContent = 'Aktualisierung fehlgeschlagen.';
         statusEl.style.color = 'var(--color-danger)';
       } finally {
-        btn.disabled    = false;
-        btn.textContent = '🔄 App aktualisieren';
+        btn.disabled  = false;
+        btn.innerHTML = `${ICON_REFRESH} App aktualisieren`;
       }
     });
   }

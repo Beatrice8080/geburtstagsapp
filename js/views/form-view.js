@@ -19,11 +19,14 @@ const MIN_YEAR      = 1900;
 const MAX_NAME_LEN  = 100;
 const MAX_NOTE_LEN  = 500;
 
+const ICON_SAVE = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>`;
+
 const CATEGORIES = [
   { value: '',               label: 'Keine Kategorie' },
   { value: 'Familie',        label: 'Familie'         },
   { value: 'Freund*innen',   label: 'Freund*innen'    },
   { value: 'Kolleg*innen',   label: 'Kolleg*innen'    },
+  { value: 'Sonstige',       label: 'Sonstige'         },
 ];
 
 export class FormView {
@@ -61,17 +64,17 @@ export class FormView {
   // ─── HTML building ─────────────────────────────────────────────────────────
 
   _buildHTML(isEdit, data, state) {
-    const title    = isEdit ? 'Geburtstag bearbeiten' : 'Neuen Geburtstag hinzufügen';
     const subtitle = isEdit
       ? 'Datum ist änderbar'
       : formatShortDate(state.day, state.month);
+    const headerTitle = isEdit ? 'Bearbeiten' : 'Hinzufügen';
 
     return `
       <header class="view-header">
         <div class="view-header__left">
           <button class="btn btn--ghost" id="form-btn-cancel">Abbrechen</button>
         </div>
-        <h1 class="view-header__title" style="font-size:var(--font-md)">${title}</h1>
+        <h1 class="view-header__title" style="font-size:var(--font-md)">${headerTitle}</h1>
         <div class="view-header__right"></div>
       </header>
 
@@ -149,7 +152,7 @@ export class FormView {
 
       <div class="day-view__footer">
         <button class="btn btn--primary btn--full" id="form-btn-save">
-          Speichern
+          ${ICON_SAVE} ${isEdit ? 'Änderungen speichern' : 'Geburtstag speichern'}
         </button>
       </div>
     `;

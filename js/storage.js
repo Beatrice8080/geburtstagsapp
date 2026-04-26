@@ -10,7 +10,7 @@
  *   day       {number}       1–31
  *   month     {number}       1–12
  *   year      {number|null}  1900–current year, or null
- *   category  {string|null}  "Familie" | "Freund*innen" | "Kolleg*innen" | null
+ *   category  {string|null}  "Familie" | "Freund*innen" | "Kolleg*innen" | "Sonstige" | null
  *   note      {string|null}  max 500 chars, or null
  *   createdAt {string}       ISO timestamp
  *   updatedAt {string}       ISO timestamp

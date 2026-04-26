@@ -14,39 +14,6 @@
 
 
 /* ============================================================
-   Regular views: translateX transitions
-   Base state is already defined in base.css (.view, .view--active, etc.)
-   Here we add the "going back" state.
-   ============================================================ */
-
-/* When this view is being left while navigating FORWARD:
-   slide it slightly left (parallax depth cue) */
-.view--behind {
-  transform: translateX(-28%);
-  transition: transform var(--transition-normal);
-}
-
-/* When this view is the one RETURNING after a back-navigation:
-   it starts at -28% and transitions back to 0 (handled by adding view--active) */
-
-/* Prevent transition during initial render (added briefly by JS) */
-.view--no-transition {
-  transition: none !important;
-}
-
-
-/* ============================================================
-   Start view: slide up / down
-   ============================================================ */
-
-/* Starting state (off-screen below) is .view--overlay in base.css:
-     transform: translateY(100%)
-   Active state is .view--overlay.view--active:
-     transform: translateY(0)
-   Both use the shared --transition-normal timing.            */
-
-
-/* ============================================================
    Calendar month transition
    ============================================================ */
 
@@ -131,17 +98,3 @@ body.modal-open {
 .animate-fade-in-up:nth-child(5) { animation-delay: 230ms; }
 
 
-/* ============================================================
-   Pressed / active states for interactive elements
-   ============================================================ */
-@keyframes pressRipple {
-  from { transform: scale(1); }
-  50%  { transform: scale(0.96); }
-  to   { transform: scale(1); }
-}
-
-/* Utility: subtle scale when tapping a card */
-.tap-scale:active {
-  transform: scale(0.98);
-  transition: transform 80ms ease;
-}

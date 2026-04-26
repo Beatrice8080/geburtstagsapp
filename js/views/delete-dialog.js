@@ -60,14 +60,44 @@ export class DeleteDialog {
       <div class="modal__backdrop" id="modal-backdrop"></div>
       <div class="modal__sheet">
         <div class="modal__drag-handle" aria-hidden="true"></div>
+        <div class="modal__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6"/>
+            <path d="M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+        </div>
         <h2 class="modal__title" id="modal-delete-title">Eintrag löschen</h2>
         <p class="modal__body">
           Möchtest du diesen Eintrag wirklich löschen?
           Diese Aktion kann nicht rückgängig gemacht werden.
         </p>
         <div class="btn-row">
-          <button class="btn btn--secondary" id="modal-btn-cancel">Abbrechen</button>
-          <button class="btn btn--danger"    id="modal-btn-confirm">Löschen</button>
+          <button class="btn btn--secondary" id="modal-btn-cancel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6"  y1="6" x2="18" y2="18"/>
+            </svg>
+            Abbrechen
+          </button>
+          <button class="btn btn--danger-soft" id="modal-btn-confirm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+              <path d="M10 11v6"/>
+              <path d="M14 11v6"/>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+            </svg>
+            Löschen
+          </button>
         </div>
       </div>
     `;

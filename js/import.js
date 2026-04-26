@@ -15,7 +15,7 @@
 import { getAllEntries, saveEntry } from './storage.js';
 import { isValidDate, getMonthName } from './utils.js';
 
-const VALID_CATEGORIES = new Set(['', 'Familie', 'Freund*innen', 'Kolleg*innen']);
+const VALID_CATEGORIES = new Set(['', 'Familie', 'Freund*innen', 'Kolleg*innen', 'Sonstige']);
 
 // ─── CSV parsing ──────────────────────────────────────────────────────────────
 
