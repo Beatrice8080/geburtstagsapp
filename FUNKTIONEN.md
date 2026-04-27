@@ -1,6 +1,6 @@
 # Geburtstagsapp – Funktionsübersicht
 
-Version 1.2.0 · Progressive Web App für iPhone (iOS 16.4+)
+Version 1.3.0 · Progressive Web App für iPhone (iOS 16.4+)
 
 ---
 
@@ -222,6 +222,17 @@ Alle Daten werden **ausschließlich lokal** auf dem Gerät gespeichert
 - Keine Cloud-Synchronisation
 - Daten bleiben auch nach dem Schließen der App erhalten
 - Daten gehen verloren, wenn der Browser-Cache vollständig geleert wird
+
+## Offline-Betrieb
+
+Die App ist vollständig serverunabhängig. Nach der ersten Installation
+(einmaliger Online-Aufruf) läuft sie komplett ohne Internetverbindung:
+
+- Alle App-Dateien (HTML, CSS, JavaScript, Icons) werden lokal gecacht
+- Die Schriftart Inter ist lokal eingebettet – keine Verbindung zu Google Fonts
+- Daten liegen im localStorage des Geräts
+- Das Hosting auf GitHub Pages kann abgeschaltet werden, ohne die Funktion
+  der App zu beeinträchtigen
 
 **Tipp:** Nutze den Export regelmäßig als Sicherungskopie.
 
