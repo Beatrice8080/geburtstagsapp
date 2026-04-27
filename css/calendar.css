@@ -132,7 +132,7 @@
 }
 
 .calendar-grid-wrapper {
-  padding: 0 var(--space-12) var(--space-12);
+  padding: 0 var(--space-12) 0;
   border-bottom: 1px solid var(--divider-color);
 }
 
@@ -140,6 +140,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: var(--space-4);
+  padding-bottom: 18px;
 }
 
 
