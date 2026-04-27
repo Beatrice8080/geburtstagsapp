@@ -1,6 +1,6 @@
 # Geburtstagsapp – Funktionsübersicht
 
-Version 1.1.0 · Progressive Web App für iPhone (iOS 16.4+)
+Version 1.2.0 · Progressive Web App für iPhone (iOS 16.4+)
 
 ---
 
@@ -10,6 +10,18 @@ Version 1.1.0 · Progressive Web App für iPhone (iOS 16.4+)
 2. Teilen-Symbol antippen → „Zum Home-Bildschirm"
 3. Die App kann danach wie eine normale App geöffnet werden
 4. Funktioniert vollständig offline – keine Internetverbindung erforderlich
+
+---
+
+## Navigation
+
+Am unteren Rand der App befindet sich eine Tab-Leiste mit drei Bereichen:
+
+| Tab | Bedeutung |
+|---|---|
+| **Aktuell** (Geschenk-Icon) | Öffnet den Startbildschirm mit den nächsten Geburtstagen |
+| **Kalender** | Öffnet die Monatskalenderansicht |
+| **Mehr** (Zahnrad-Icon) | Öffnet die Einstellungen |
 
 ---
 
@@ -28,9 +40,7 @@ aktuellen Jahr und Kategorie.
 Schließen über das **×** rechts oben → wechselt zum Kalender.
 
 Der Startbildschirm kann jederzeit erneut geöffnet werden – über den
-**🎂 Geburtstage**-Button am unteren Rand der Kalenderansicht. Das
-Slide-up-Overlay erscheint dabei genau wie beim App-Start und schließt
-sich wieder mit dem **×**-Button.
+**Aktuell**-Tab in der Tab-Leiste am unteren Rand.
 
 ---
 
@@ -43,11 +53,29 @@ Zeigt einen Monatskalender:
 | Lila Punkt unter einem Tag | An diesem Tag ist mindestens ein Geburtstag eingetragen |
 | Roter Rahmen um den Tag | Das ist heute |
 | ‹ / › | Zum vorherigen / nächsten Monat wechseln |
-| **Heute** (rechts oben) | Springt zurück zum aktuellen Monat |
-| ⚙ (links oben) | Öffnet die Einstellungen |
-| 🎂 Geburtstage (unten) | Öffnet den Startbildschirm erneut |
+| **Heute** (links oben) | Springt zurück zum aktuellen Monat |
+| 🔍 (rechts oben) | Öffnet die Suchfunktion |
 
 **Tipp:** Ein Tipp auf einen beliebigen Tag öffnet die Tages-Detailansicht.
+
+---
+
+## Suchfunktion
+
+Erreichbar über das 🔍-Symbol in der Kalenderansicht.
+
+Ermöglicht das Suchen nach Geburtstagen anhand von Name und/oder Jahrgang.
+Die Ergebnisse zeigen Geburtstage der nächsten 365 Tage, gruppiert nach
+Datum und aufsteigend sortiert.
+
+| Feld | Details |
+|---|---|
+| **Name** | Suche nach Namensbestandteil (Groß-/Kleinschreibung egal) |
+| **Jahrgang** | Suche nach exaktem Geburtsjahr |
+
+Beide Felder können einzeln oder kombiniert verwendet werden. Enter oder
+„Suchen" startet die Suche. Ein Tipp auf ein Ergebnis öffnet die
+Tages-Detailansicht des jeweiligen Geburtstags.
 
 ---
 
@@ -104,7 +132,7 @@ Erscheint nach Tippen auf „Löschen" in der Tages-Detailansicht:
 
 ## Einstellungen
 
-Erreichbar über das ⚙-Symbol in der Kalenderansicht.
+Erreichbar über den **Mehr**-Tab in der Tab-Leiste.
 
 ### Export
 
@@ -167,6 +195,22 @@ geschlossen ist. Das ist eine technische Plattformbeschränkung.
 **Empfehlung:** Öffne die App regelmäßig – beim Start siehst du sofort,
 wer heute oder in den nächsten Tagen Geburtstag hat.
 
+### App aktualisieren
+
+Prüft, ob eine neue Version verfügbar ist, und lädt sie herunter.
+Nach erfolgreicher Aktualisierung wird die App automatisch neu geladen.
+
+**Hinweis:** Vor der Aktualisierung alle Geburtstage als CSV exportieren –
+die Daten bleiben zwar in der Regel erhalten, aber Vorsicht schadet nie.
+
+Mögliche Rückmeldungen:
+
+| Meldung | Bedeutung |
+|---|---|
+| ✓ Du hast bereits die neueste Version. | Kein Update verfügbar |
+| (App lädt neu) | Update wurde heruntergeladen und aktiviert |
+| Aktualisierung fehlgeschlagen. | Kein Internetzugang oder technischer Fehler |
+
 ---
 
 ## Datenspeicherung
@@ -192,18 +236,3 @@ Alle Daten werden **ausschließlich lokal** auf dem Gerät gespeichert
 | Export fehlgeschlagen | „Export fehlgeschlagen. Bitte versuche es erneut." |
 | Ungültiges Datum (Edit-Modus) | „Dieses Datum existiert nicht. Bitte überprüfe Tag und Monat." |
 | Importdatei nicht lesbar | „Datei konnte nicht gelesen werden." |
-
----
-
-## Ikonaustausch (für Entwickler)
-
-Die Platzhalter-Icons können jederzeit durch eigene Grafiken ersetzt werden:
-
-| Datei | Größe | Verwendung |
-|---|---|---|
-| `icons/icon-180.png` | 180 × 180 px | iOS Home-Bildschirm-Icon |
-| `icons/icon-192.png` | 192 × 192 px | Android / PWA-Icon |
-| `icons/icon-512.png` | 512 × 512 px | PWA Splash Screen |
-
-Anforderungen: PNG-Format, kein transparenter Hintergrund, quadratisch.
-iOS rundet die Ecken automatisch ab.
