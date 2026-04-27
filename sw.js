@@ -4,7 +4,7 @@
    fully offline after the first load.
    ============================================================ */
 
-const CACHE_NAME = 'geburtstagsapp-v8';
+const CACHE_NAME = 'geburtstagsapp-v9';
 
 // All files that must be cached for offline use
 const ASSETS_TO_CACHE = [
@@ -28,7 +28,7 @@ const ASSETS_TO_CACHE = [
   './js/views/settings-view.js',
   './js/export.js',
   './js/import.js',
-  './icons/icon-180.png',
+  './icons/icon-180.png?v=1.2.0',
   './icons/icon-192.png',
   './icons/icon-512.png',
 ];
