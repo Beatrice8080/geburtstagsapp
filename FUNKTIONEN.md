@@ -1,6 +1,6 @@
 # Geburtstagsapp – Funktionsübersicht
 
-Version 1.3.0 · Progressive Web App für iPhone (iOS 16.4+)
+Version 1.4.0 · Progressive Web App für iPhone (iOS 16.4+)
 
 ---
 
@@ -194,22 +194,6 @@ geschlossen ist. Das ist eine technische Plattformbeschränkung.
 
 **Empfehlung:** Öffne die App regelmäßig – beim Start siehst du sofort,
 wer heute oder in den nächsten Tagen Geburtstag hat.
-
-### App aktualisieren
-
-Prüft, ob eine neue Version verfügbar ist, und lädt sie herunter.
-Nach erfolgreicher Aktualisierung wird die App automatisch neu geladen.
-
-**Hinweis:** Vor der Aktualisierung alle Geburtstage als CSV exportieren –
-die Daten bleiben zwar in der Regel erhalten, aber Vorsicht schadet nie.
-
-Mögliche Rückmeldungen:
-
-| Meldung | Bedeutung |
-|---|---|
-| ✓ Du hast bereits die neueste Version. | Kein Update verfügbar |
-| (App lädt neu) | Update wurde heruntergeladen und aktiviert |
-| Aktualisierung fehlgeschlagen. | Kein Internetzugang oder technischer Fehler |
 
 ---
 

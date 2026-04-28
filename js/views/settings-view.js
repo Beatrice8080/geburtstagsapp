@@ -10,11 +10,10 @@
 import { exportCSV }         from '../export.js';
 import { processCSVImport } from '../import.js';
 
-const APP_VERSION = '1.3.0';
+const APP_VERSION = '1.4.0';
 
 const ICON_EXPORT  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`;
 const ICON_IMPORT  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
-const ICON_REFRESH = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`;
 
 export class SettingsView {
   /**
@@ -108,19 +107,6 @@ export class SettingsView {
           <div class="list-item" style="display:flex;justify-content:space-between;align-items:center">
             <span style="font-weight:500">Version</span>
             <span style="color:var(--text-secondary);font-size:var(--font-sm)">${APP_VERSION}</span>
-          </div>
-          <div class="list-item">
-            <p style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-12)">
-              Prüft, ob eine neue Version verfügbar ist, und lädt sie herunter.
-              <br><br>
-              <strong style="color:var(--text-primary)">Achtung:</strong> Vor der Aktualisierung bitte alle Geburtstage als CSV-Datei exportieren.
-              Die Geburtstage sollten zwar eigentlich bei der Aktualisierung der App erhalten bleiben,
-              aber Vorsicht schadet nie, falls doch etwas schief geht.
-            </p>
-            <button class="btn btn--secondary btn--full" id="settings-btn-update">
-              ${ICON_REFRESH} App aktualisieren
-            </button>
-            <div id="update-status" style="margin-top:var(--space-8);font-size:var(--font-sm);text-align:center"></div>
           </div>
         </div>
 
@@ -265,47 +251,5 @@ export class SettingsView {
       }
     });
 
-    q('#settings-btn-update')?.addEventListener('click', async () => {
-      const btn       = q('#settings-btn-update');
-      const statusEl  = q('#update-status');
-
-      if (!('serviceWorker' in navigator)) {
-        statusEl.textContent = 'Aktualisierung nicht unterstützt.';
-        statusEl.style.color = 'var(--color-danger)';
-        return;
-      }
-
-      btn.disabled    = true;
-      btn.textContent = 'Wird geprüft…';
-      statusEl.textContent = '';
-
-      try {
-        const reg = await navigator.serviceWorker.getRegistration();
-        if (!reg) throw new Error('Kein Service Worker gefunden.');
-
-        // Listen for a new SW taking control → reload to serve fresh files
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-          window.location.reload();
-        });
-
-        await reg.update();
-
-        // If a new SW is already waiting (installed but not yet active), activate it
-        if (reg.waiting) {
-          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-          return; // reload will follow via controllerchange
-        }
-
-        // No update waiting → already up to date
-        statusEl.textContent = '✓ Du hast bereits die neueste Version.';
-        statusEl.style.color = 'var(--color-success, #16a34a)';
-      } catch (err) {
-        statusEl.textContent = 'Aktualisierung fehlgeschlagen.';
-        statusEl.style.color = 'var(--color-danger)';
-      } finally {
-        btn.disabled  = false;
-        btn.innerHTML = `${ICON_REFRESH} App aktualisieren`;
-      }
-    });
   }
 }
